@@ -693,7 +693,7 @@ svg {
 
   var height = 18;
   var xAdvance = 0;
-  var widthMultiplier = 12;
+  var widthMultiplier = 10;
 
   var dataset = [];
   var svg = d3.select("#jogos").append("svg:svg")
@@ -796,9 +796,7 @@ svg {
         for (var index in tabelao) {
            var pts = pontos({left: tabelao[index][jIndex], right:tabelao[index][jIndex+1]},d);
            var playerName = tabelao[index][3];
-           var barWidth = 10;
-
-           if (pts > 0) barWidth = pts*widthMultiplier;
+           var  barWidth = (1 + pts)*widthMultiplier;
 
           //  if (pts>0) {
               var y = ((parseInt(index)+1)*(height+1)-3);
