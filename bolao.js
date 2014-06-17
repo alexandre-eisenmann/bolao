@@ -1,3 +1,5 @@
+
+
 var height = 18;
 var xAdvance = 0;
 var widthMultiplier = 10;
@@ -9,6 +11,10 @@ var assyncDurationUp = 10;
 var topViewport = 50;
 var bottom = $(window).height()*4/5;
 var mode = 'pressa';
+
+var NAME_COLUMN = 3;
+var ID_COLUMN = 1;
+var POINTS_COLUMN = 0;
 
 function left(d) {
    return d.left
@@ -33,7 +39,7 @@ function pontos(palpite, efetivo) {
 }
 
 function sortFunction(a,b) {
-  return b[0] - a[0] + a[3].localeCompare(b[3])
+  return b[POINTS_COLUMN] - a[POINTS_COLUMN] + a[NAME_COLUMN].localeCompare(b[NAME_COLUMN])
 }
 
 function start() {
@@ -46,7 +52,7 @@ function sort() {
   dataset = [];
   tabelao.sort(sortFunction);
   for(var i in tabelao) {
-    tabelao[i][0] = 0;
+    tabelao[i][POINTS_COLUMN] = 0;
   }
 }
 
@@ -60,10 +66,10 @@ function addPlayers(svg) {
     return "translate(0," + ((i+1)*(height+1)-3) + ")"
   })
   .each(function(d,i) {
-    var playerName = d[3].toUpperCase();
+    var playerName = d[NAME_COLUMN].toUpperCase();
     var playerGroup = d3.select(this);
 
-    playerGroup.attr("class","c" + d[1]);
+    playerGroup.attr("class","c" + d[ID_COLUMN]);
 
     playerGroup
     .append("text")
@@ -125,11 +131,11 @@ function buildUpdate(jIndex) {
 
       for (var index in tabelao) {
          var pts = pontos({left: tabelao[index][jIndex], right:tabelao[index][jIndex+1]},d);
-         var playerName = tabelao[index][3];
+         var playerName = tabelao[index][NAME_COLUMN];
          var  barWidth = (1 + pts)*widthMultiplier;
          var y = ((parseInt(index)+1)*(height+1)-3);
 
-         var bar = d3.select('.c' + tabelao[index][1])
+         var bar = d3.select('.c' + tabelao[index][ID_COLUMN])
           .append("rect")
           .attr("x",$(window).width())
           .attr("y",0)
@@ -142,17 +148,17 @@ function buildUpdate(jIndex) {
           .transition()
           .delay(delay)
           .duration(rainDuration)
-          .attr("x",xAdvance + tabelao[index][0])
+          .attr("x",xAdvance + tabelao[index][POINTS_COLUMN])
           .each("start", closure(y));
 
          delay+= assyncDurationDown;
-         tabelao[index][0] += barWidth;
+         tabelao[index][POINTS_COLUMN] += barWidth;
       }
       delay+=rainDuration;
       tabelao.sort(sortFunction)
       for (var index in tabelao) {
          var y = ((parseInt(index)+1)*(height+1)-3);
-         var bar = d3.select('.c' + tabelao[index][1])
+         var bar = d3.select('.c' + tabelao[index][ID_COLUMN])
 
          bar
             .transition()
@@ -167,7 +173,7 @@ function buildUpdate(jIndex) {
      for (var j in tabelao) {
          var index = tabelao.length - parseInt(j) -1;
          var y = ((index+1)*(height+1)-3);
-         var bar = d3.select('.c' + tabelao[index][1])
+         var bar = d3.select('.c' + tabelao[index][ID_COLUMN])
 
          bar
             .transition()
