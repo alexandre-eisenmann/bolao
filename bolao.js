@@ -42,7 +42,7 @@ function start() {
   addPlayers(svg);
 }
 
-function reset() {
+function sort() {
   dataset = [];
   tabelao.sort(sortFunction);
   for(var i in tabelao) {

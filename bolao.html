@@ -312,9 +312,9 @@ var marked;
 
 $( document ).ready(function() {
 
+   sort();
    start();
-   reset();
-   
+
    $('body').bind('keypress', function(e) {
 
      if (!marked) return;
@@ -350,8 +350,6 @@ $( document ).ready(function() {
     })
 
     var update = buildUpdate(5);
-    reset();
-    addPlayers(svg);
 
     var process = function() {
 
