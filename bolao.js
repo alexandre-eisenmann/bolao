@@ -127,29 +127,26 @@ function buildUpdate(jIndex) {
          var pts = pontos({left: tabelao[index][jIndex], right:tabelao[index][jIndex+1]},d);
          var playerName = tabelao[index][3];
          var  barWidth = (1 + pts)*widthMultiplier;
+         var y = ((parseInt(index)+1)*(height+1)-3);
 
-        //  if (pts>0) {
-            var y = ((parseInt(index)+1)*(height+1)-3);
+         var bar = d3.select('.c' + tabelao[index][1])
+          .append("rect")
+          .attr("x",$(window).width())
+          .attr("y",0)
+          .attr("width",barWidth)
+          .attr("height",height)
+          .attr("fill",{0:"#555",3:"#33ccff",5:"green",8:"yellow"}[pts])
+          .attr("opacity",0.4);
 
-            var bar = d3.select('.c' + tabelao[index][1])
-            .append("rect")
-            .attr("x",$(window).width())
-            .attr("y",0)
-            .attr("width",barWidth)
-            .attr("height",height)
-            .attr("fill",{0:"#555",3:"#33ccff",5:"green",8:"yellow"}[pts])
-            .attr("opacity",0.4);
+         bar
+          .transition()
+          .delay(delay)
+          .duration(rainDuration)
+          .attr("x",xAdvance + tabelao[index][0])
+          .each("start", closure(y));
 
-            bar
-            .transition()
-            .delay(delay)
-            .duration(rainDuration)
-            .attr("x",xAdvance + tabelao[index][0])
-            .each("start", closure(y));
-
-            delay+= assyncDurationDown;
-            tabelao[index][0] += barWidth;
-        //  }
+         delay+= assyncDurationDown;
+         tabelao[index][0] += barWidth;
       }
       delay+=rainDuration;
       tabelao.sort(sortFunction)
