@@ -1,11 +1,12 @@
 
 
 var height = 18;
-var xAdvance = 0;
-var widthMultiplier = 10;
+var xAdvance = 235;
+var widthMultiplier = 8;
 var rainDuration = 1000;
 var sortDuration = 500;
 var goLeftDuration = 50;
+var pointsDuration = 20;
 var assyncDurationDown = 30;
 var assyncDurationUp = 10;
 var topViewport = 50;
@@ -90,13 +91,42 @@ function addPlayers(svg) {
     playerGroup.attr("class","c" + d[ID_COLUMN]);
 
     playerGroup
+     .append("rect")
+     .attr("x",5)
+     .attr("y",0)
+     .attr("width",230)
+     .attr("height",height)
+     .attr("fill","#bbb")
+     .attr("opacity",0.1);
+
+    playerGroup
     .append("text")
     .text(playerName)
     .attr("x",10)
     .attr("y",height-5)
     .attr("font-family","sans-serif")
     .attr("font-size","10px")
-    .attr("fill","#777")
+    .attr("fill","#777");
+
+    playerGroup
+    .append("text")
+    .text("")
+    .attr("x",220)
+    .attr("y",height-5)
+    .attr("font-family","sans-serif")
+    .attr("font-size","10px")
+    .attr("fill","white")
+    .attr("class","delta");
+
+    playerGroup
+    .append("text")
+    .text("")
+    .attr("x",220)
+    .attr("y",height-5)
+    .attr("font-family","sans-serif")
+    .attr("font-size","10px")
+    .attr("fill","#aaa")
+    .attr("class","points");
 
   })
 
@@ -139,6 +169,9 @@ function buildUpdate(jIndex) {
   var resultados = d3.select("#resultados")
   var delay = 0;
 
+  d3.selectAll('.delta').text("")
+  d3.selectAll('.points').text("")
+
 
   resultados.selectAll("div")
     .data(dataset)
@@ -176,38 +209,13 @@ function buildUpdate(jIndex) {
       calculate();
       for (var index in tabelao) {
          var y = ((parseInt(index)+1)*(height+1)-3);
-         var bar = d3.select('.c' + tabelao[index][ID_COLUMN ])
-         var campanha = tabelao[index][POSITION_COLUMN];
-         if (campanha.length > 1) {
-           var delta = campanha[0] - campanha[1];
-           var deltaStr = ""+delta;
-           var color = "#f33d6c";
-           if (delta < 0) {
-              deltaStr = "+" + delta
-              color = "#45e954"
-           } else if (delta == 0) {
-              color = "#f3cf3d";
-           }
-
-           bar
-              .append("text")
-              .text(deltaStr)
-              .attr("x",xAdvance + tabelao[index][POINTS_COLUMN])
-              .attr("y",height-5)
-              .attr("font-family","sans-serif")
-              .attr("font-size","10px")
-              .attr("fill",color)    
-
-         }
-
-
-
+         var bar = d3.select('.c' + tabelao[index][ID_COLUMN])
 
          bar
             .transition()
             .delay(delay)
             .duration(sortDuration)
-            .attr("transform","translate(212," + y + ")")
+            .attr("transform","translate(400," + y + ")")
             .each("start", closure(y));
 
 
@@ -229,6 +237,42 @@ function buildUpdate(jIndex) {
         delay+= assyncDurationUp;
      }
      delay+=goLeftDuration;
+     for (var index in tabelao) {
+          var pointsBar = d3.select('.c' + tabelao[index][ID_COLUMN ] + ' .points');
+          var deltaBar = d3.select('.c' + tabelao[index][ID_COLUMN ] + ' .delta');
+          var campanha = tabelao[index][POSITION_COLUMN];
+          if (campanha.length > 1) {
+            var delta = campanha[0] - campanha[1];
+            var deltaStr = "-"+delta;
+            var color = "#f33d6c";
+            if (delta < 0) {
+               deltaStr = "+" + (-delta)
+               color = "#45e954"
+            } else if (delta == 0) {
+               deltaStr = "";
+               // color = "#f3cf3d";
+            }
+
+             deltaBar
+               .transition()
+               .delay(delay)
+               .duration(pointsDuration)
+               .text(deltaStr)
+               .attr("fill",color);
+          }
+
+          // pointsBar
+          //   .transition()
+          //   .delay(delay)
+          //   .duration(pointsDuration)
+          //   .text(tabelao[index][POINTS_COLUMN])
+
+
+         delay+= assyncDurationUp;
+      }
+      delay+=pointsDuration;
+
+
      jIndex += 3;
     });
 
