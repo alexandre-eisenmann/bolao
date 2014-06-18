@@ -1,8 +1,8 @@
 
 
 var height = 18;
-var xAdvance = 235;
-var widthMultiplier = 8;
+var xAdvance = 240;
+var widthMultiplier = 5;
 var rainDuration = 1000;
 var sortDuration = 500;
 var goLeftDuration = 50;
@@ -14,9 +14,10 @@ var bottom = $(window).height()*4/5;
 var mode = 'pressa';
 
 var POINTS_COLUMN = 0;
-var ID_COLUMN = 1;
-var POSITION_COLUMN = 2;
-var NAME_COLUMN = 3;
+var SIZE_COLUMN = 1;
+var ID_COLUMN = 2;
+var POSITION_COLUMN = 3;
+var NAME_COLUMN = 4;
 
 function left(d) {
    return d.left
@@ -41,7 +42,7 @@ function pontos(palpite, efetivo) {
 }
 
 function sortFunction(a,b) {
-  return b[POINTS_COLUMN] - a[POINTS_COLUMN] + a[NAME_COLUMN].localeCompare(b[NAME_COLUMN])
+  return (b[POINTS_COLUMN] - a[POINTS_COLUMN])*10000 + a[NAME_COLUMN].localeCompare(b[NAME_COLUMN])
 }
 
 function start() {
@@ -111,7 +112,7 @@ function addPlayers(svg) {
     playerGroup
     .append("text")
     .text("")
-    .attr("x",220)
+    .attr("x",200)
     .attr("y",height-5)
     .attr("font-family","sans-serif")
     .attr("font-size","10px")
@@ -183,8 +184,10 @@ function buildUpdate(jIndex) {
       for (var index in tabelao) {
          var pts = pontos({left: tabelao[index][jIndex], right:tabelao[index][jIndex+1]},d);
          var playerName = tabelao[index][NAME_COLUMN];
-         var  barWidth = (1 + pts)*widthMultiplier;
+         var barWidth = (1 + pts)*widthMultiplier;
          var y = ((parseInt(index)+1)*(height+1)-3);
+
+         var pointsBar = d3.select('.c' + tabelao[index][ID_COLUMN ] + ' .points');
 
          var bar = d3.select('.c' + tabelao[index][ID_COLUMN])
           .append("rect")
@@ -195,15 +198,21 @@ function buildUpdate(jIndex) {
           .attr("fill",{0:"#555",3:"#33ccff",5:"green",8:"yellow"}[pts])
           .attr("opacity",0.4);
 
+
+         tabelao[index][POINTS_COLUMN] += pts;
+
          bar
           .transition()
           .delay(delay)
           .duration(rainDuration)
-          .attr("x",xAdvance + tabelao[index][POINTS_COLUMN])
+          .attr("x",xAdvance + tabelao[index][SIZE_COLUMN])
           .each("start", closure(y));
 
+          tabelao[index][SIZE_COLUMN] += barWidth;
+
+          pointsBar.text(tabelao[index][POINTS_COLUMN]);
+
          delay+= assyncDurationDown;
-         tabelao[index][POINTS_COLUMN] += barWidth;
       }
       delay+=rainDuration;
       calculate();
@@ -238,7 +247,6 @@ function buildUpdate(jIndex) {
      }
      delay+=goLeftDuration;
      for (var index in tabelao) {
-          var pointsBar = d3.select('.c' + tabelao[index][ID_COLUMN ] + ' .points');
           var deltaBar = d3.select('.c' + tabelao[index][ID_COLUMN ] + ' .delta');
           var campanha = tabelao[index][POSITION_COLUMN];
           if (campanha.length > 1) {
@@ -260,12 +268,6 @@ function buildUpdate(jIndex) {
                .text(deltaStr)
                .attr("fill",color);
           }
-
-          // pointsBar
-          //   .transition()
-          //   .delay(delay)
-          //   .duration(pointsDuration)
-          //   .text(tabelao[index][POINTS_COLUMN])
 
 
          delay+= assyncDurationUp;
