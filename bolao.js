@@ -12,9 +12,10 @@ var topViewport = 50;
 var bottom = $(window).height()*4/5;
 var mode = 'pressa';
 
-var NAME_COLUMN = 3;
-var ID_COLUMN = 1;
 var POINTS_COLUMN = 0;
+var ID_COLUMN = 1;
+var POSITION_COLUMN = 2;
+var NAME_COLUMN = 3;
 
 function left(d) {
    return d.left
@@ -49,12 +50,29 @@ function start() {
 }
 
 function sort() {
-  dataset = [];
   tabelao.sort(sortFunction);
   for(var i in tabelao) {
     tabelao[i][POINTS_COLUMN] = 0;
   }
 }
+
+function calculate() {
+  tabelao.sort(sortFunction);
+  var lastPoint = -1;
+  var position = 0;
+  for(var i in tabelao) {
+    if (tabelao[i][POINTS_COLUMN] != lastPoint) {
+      lastPoint = tabelao[i][POINTS_COLUMN];
+      position++;
+    }
+    if (tabelao[i][POSITION_COLUMN] instanceof Array) {
+      tabelao[i][POSITION_COLUMN].unshift(position);
+    } else {
+      tabelao[i][POSITION_COLUMN] = [position];
+    }
+  }
+}
+
 
 function addPlayers(svg) {
 
@@ -155,10 +173,35 @@ function buildUpdate(jIndex) {
          tabelao[index][POINTS_COLUMN] += barWidth;
       }
       delay+=rainDuration;
-      tabelao.sort(sortFunction)
+      calculate();
       for (var index in tabelao) {
          var y = ((parseInt(index)+1)*(height+1)-3);
-         var bar = d3.select('.c' + tabelao[index][ID_COLUMN])
+         var bar = d3.select('.c' + tabelao[index][ID_COLUMN ])
+         var campanha = tabelao[index][POSITION_COLUMN];
+         if (campanha.length > 1) {
+           var delta = campanha[0] - campanha[1];
+           var deltaStr = ""+delta;
+           var color = "#f33d6c";
+           if (delta < 0) {
+              deltaStr = "+" + delta
+              color = "#45e954"
+           } else if (delta == 0) {
+              color = "#f3cf3d";
+           }
+
+           bar
+              .append("text")
+              .text(deltaStr)
+              .attr("x",xAdvance + tabelao[index][POINTS_COLUMN])
+              .attr("y",height-5)
+              .attr("font-family","sans-serif")
+              .attr("font-size","10px")
+              .attr("fill",color)    
+
+         }
+
+
+
 
          bar
             .transition()
@@ -166,6 +209,7 @@ function buildUpdate(jIndex) {
             .duration(sortDuration)
             .attr("transform","translate(212," + y + ")")
             .each("start", closure(y));
+
 
         delay+= assyncDurationDown;
      }
