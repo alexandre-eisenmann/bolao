@@ -1,7 +1,8 @@
 
 
-var height = 18;
-var xAdvance = 240;
+var height = 28;
+var xAdvance = 5;
+var yTextAdvance = -15;
 var widthMultiplier = 5;
 var rainDuration = 1000;
 var sortDuration = 500;
@@ -12,6 +13,7 @@ var assyncDurationUp = 10;
 var topViewport = 50;
 var bottom = $(window).height()*4/5;
 var mode = 'pressa';
+var barHeight = 12;
 
 var POINTS_COLUMN = 0;
 var SIZE_COLUMN = 1;
@@ -91,29 +93,29 @@ function addPlayers(svg) {
 
     playerGroup.attr("class","c" + d[ID_COLUMN]);
 
-    playerGroup
-     .append("rect")
-     .attr("x",5)
-     .attr("y",0)
-     .attr("width",230)
-     .attr("height",height)
-     .attr("fill","#bbb")
-     .attr("opacity",0.1);
+    // playerGroup
+    //  .append("rect")
+    //  .attr("x",5)
+    //  .attr("y",0)
+    //  .attr("width",230)
+    //  .attr("height",height)
+    //  .attr("fill","#555");
+     // .attr("opacity",0.1);
 
     playerGroup
     .append("text")
     .text(playerName)
     .attr("x",10)
-    .attr("y",height-5)
+    .attr("y",height + yTextAdvance)
     .attr("font-family","sans-serif")
     .attr("font-size","10px")
-    .attr("fill","#777");
+    .attr("fill","white");
 
     playerGroup
     .append("text")
     .text("")
     .attr("x",200)
-    .attr("y",height-5)
+    .attr("y",height + yTextAdvance)
     .attr("font-family","sans-serif")
     .attr("font-size","10px")
     .attr("fill","white")
@@ -123,7 +125,7 @@ function addPlayers(svg) {
     .append("text")
     .text("")
     .attr("x",220)
-    .attr("y",height-5)
+    .attr("y",height + yTextAdvance)
     .attr("font-family","sans-serif")
     .attr("font-size","10px")
     .attr("fill","#aaa")
@@ -192,9 +194,9 @@ function buildUpdate(jIndex) {
          var bar = d3.select('.c' + tabelao[index][ID_COLUMN])
           .append("rect")
           .attr("x",$(window).width())
-          .attr("y",0)
+          .attr("y",height-barHeight)
           .attr("width",barWidth)
-          .attr("height",height)
+          .attr("height",barHeight)
           .attr("fill",{0:"#555",3:"#33ccff",5:"green",8:"yellow"}[pts])
           .attr("opacity",0.4);
 
