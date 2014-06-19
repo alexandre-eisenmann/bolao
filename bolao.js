@@ -1,9 +1,9 @@
 
 
 var height = 28;
-var xAdvance = 5;
-var yTextAdvance = -15;
-var widthMultiplier = 5;
+var xAdvance = 305;
+var yTextAdvance = -10;
+var widthMultiplier = 8;
 var rainDuration = 1000;
 var sortDuration = 500;
 var goLeftDuration = 50;
@@ -13,7 +13,7 @@ var assyncDurationUp = 10;
 var topViewport = 50;
 var bottom = $(window).height()*4/5;
 var mode = 'pressa';
-var barHeight = 12;
+var barHeight = 28;
 
 var POINTS_COLUMN = 0;
 var SIZE_COLUMN = 1;
@@ -67,7 +67,7 @@ function calculate() {
   for(var i in tabelao) {
     if (tabelao[i][POINTS_COLUMN] != lastPoint) {
       lastPoint = tabelao[i][POINTS_COLUMN];
-      position++;
+      position = parseInt(i) + 1;
     }
     if (tabelao[i][POSITION_COLUMN] instanceof Array) {
       tabelao[i][POSITION_COLUMN].unshift(position);
@@ -93,30 +93,30 @@ function addPlayers(svg) {
 
     playerGroup.attr("class","c" + d[ID_COLUMN]);
 
-    // playerGroup
-    //  .append("rect")
-    //  .attr("x",5)
-    //  .attr("y",0)
-    //  .attr("width",230)
-    //  .attr("height",height)
-    //  .attr("fill","#555");
-     // .attr("opacity",0.1);
+    playerGroup
+     .append("rect")
+     .attr("x",5)
+     .attr("y",0)
+     .attr("width",300)
+     .attr("height",height)
+     .attr("fill","#888")
+     .attr("opacity",0.1);
 
     playerGroup
     .append("text")
     .text(playerName)
-    .attr("x",10)
+    .attr("x",30)
     .attr("y",height + yTextAdvance)
-    .attr("font-family","sans-serif")
+    .attr("font-family","'Gotham SSm A', 'Gotham SSm B', 'Lucida Grande','Lucida Sans Unicode', Tahoma, sans-serif")
     .attr("font-size","10px")
     .attr("fill","white");
 
     playerGroup
     .append("text")
     .text("")
-    .attr("x",200)
+    .attr("x",250)
     .attr("y",height + yTextAdvance)
-    .attr("font-family","sans-serif")
+    .attr("font-family","'Gotham SSm A', 'Gotham SSm B', 'Lucida Grande','Lucida Sans Unicode', Tahoma, sans-serif")
     .attr("font-size","10px")
     .attr("fill","white")
     .attr("class","delta");
@@ -124,12 +124,24 @@ function addPlayers(svg) {
     playerGroup
     .append("text")
     .text("")
-    .attr("x",220)
+    .attr("x",280)
     .attr("y",height + yTextAdvance)
+    .attr("font-family","'Gotham SSm A', 'Gotham SSm B', 'Lucida Grande','Lucida Sans Unicode', Tahoma, sans-serif")
     .attr("font-family","sans-serif")
     .attr("font-size","10px")
     .attr("fill","#aaa")
     .attr("class","points");
+
+    playerGroup
+    .append("text")
+    .text("")
+    .attr("x",15)
+    .attr("y",height + yTextAdvance)
+    .attr("font-family","'Gotham SSm A', 'Gotham SSm B', 'Lucida Grande','Lucida Sans Unicode', Tahoma, sans-serif")
+    .attr("font-family","sans-serif")
+    .attr("font-size","10px")
+    .attr("fill","#aaa")
+    .attr("class","position");
 
   })
 
@@ -189,7 +201,8 @@ function buildUpdate(jIndex) {
          var barWidth = (1 + pts)*widthMultiplier;
          var y = ((parseInt(index)+1)*(height+1)-3);
 
-         var pointsBar = d3.select('.c' + tabelao[index][ID_COLUMN ] + ' .points');
+         var pointsBar = d3.select('.c' + tabelao[index][ID_COLUMN] + ' .points');
+
 
          var bar = d3.select('.c' + tabelao[index][ID_COLUMN])
           .append("rect")
@@ -226,7 +239,7 @@ function buildUpdate(jIndex) {
             .transition()
             .delay(delay)
             .duration(sortDuration)
-            .attr("transform","translate(400," + y + ")")
+            .attr("transform","translate(600," + y + ")")
             .each("start", closure(y));
 
 
@@ -250,6 +263,8 @@ function buildUpdate(jIndex) {
      delay+=goLeftDuration;
      for (var index in tabelao) {
           var deltaBar = d3.select('.c' + tabelao[index][ID_COLUMN ] + ' .delta');
+          var positionBar = d3.select('.c' + tabelao[index][ID_COLUMN] + ' .position');
+
           var campanha = tabelao[index][POSITION_COLUMN];
           if (campanha.length > 1) {
             var delta = campanha[0] - campanha[1];
@@ -269,6 +284,9 @@ function buildUpdate(jIndex) {
                .duration(pointsDuration)
                .text(deltaStr)
                .attr("fill",color);
+
+            positionBar.text(tabelao[index][POSITION_COLUMN][0]);
+
           }
 
 
