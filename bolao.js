@@ -105,7 +105,7 @@ function addPlayers(svg) {
     playerGroup
     .append("text")
     .text(playerName)
-    .attr("x",30)
+    .attr("x",38)
     .attr("y",height + yTextAdvance)
     .attr("font-family","'Gotham SSm A', 'Gotham SSm B', 'Lucida Grande','Lucida Sans Unicode', Tahoma, sans-serif")
     .attr("font-size","10px")
