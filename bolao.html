@@ -677,8 +677,7 @@ $( document ).ready(function() {
       var jqGame = $(this);
       var left = jqGame.find('.left').html();
       var right = jqGame.find('.right').html();
-      // window.location.href = window.location.href.replace(".html", '/confirmation.html');
-      console.log(window.location.href);
+      window.location.href = window.location.href.replace(/(selectGame=)[^\&]+/, '$1' +(left + ""+right).toLowerCase());
 
 
      $()
