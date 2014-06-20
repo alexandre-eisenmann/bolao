@@ -29,6 +29,7 @@ function right(d) {
    return d.right
 }
 
+
 function pontos(palpite, efetivo) {
   if (palpite.left == efetivo.left && palpite.right == efetivo.right) {
     return 8;
@@ -41,6 +42,13 @@ function pontos(palpite, efetivo) {
   } else {
     return 0;
   }
+}
+
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 
 function sortFunction(a,b) {
@@ -183,6 +191,7 @@ function buildUpdate(jIndex) {
 
   var resultados = d3.select("#resultados")
   var delay = 0;
+  var stats = {0: 0, 3:0, 5:0, 8: 0};
 
   d3.selectAll('.delta').text("")
   d3.selectAll('.points').text("")
@@ -197,6 +206,7 @@ function buildUpdate(jIndex) {
 
       for (var index in tabelao) {
          var pts = pontos({left: tabelao[index][jIndex], right:tabelao[index][jIndex+1]},d);
+         stats[pts]++;
          var playerName = tabelao[index][NAME_COLUMN];
          var barWidth = (1 + pts)*widthMultiplier;
          var y = ((parseInt(index)+1)*(height+1)-3);
@@ -298,8 +308,9 @@ function buildUpdate(jIndex) {
      jIndex += 3;
     });
 
+
     setTimeout(function() {
-      callback();
+      callback(stats);
     },delay);
 
   }

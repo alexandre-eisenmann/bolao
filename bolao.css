@@ -17,12 +17,10 @@ svg {
 
 .header {
   display: block;
-  padding: 20px;
   background: rgba(0,0,0,0.3);
 
   box-shadow: 0 1px 0 rgba(255,255,255,0.1),inset 0 1px 0 #000;
-  margin: 10px;
-  height: 50px;
+  height: 94px;
   font-family: 'Gotham SSm A', 'Gotham SSm B', "Lucida Grande","Lucida Sans Unicode", Tahoma, sans-serif;
 
 }
@@ -74,10 +72,38 @@ svg {
   color: white;
   padding-top: 3px;
   padding-bottom: 3px;
+  padding-left:1px;
+  padding-right:1px;
+
 }
 
+.game:hover {
+  background-color: #ddd
+
+}
+
+
+.stats0 {
+color: #555;
+}
+.stats3 {
+color: #33ccff;
+}
+.stats5 {
+color: green;
+}
+.stats8 {
+color: yellow;
+}
+
+
 .select-game {
-  border: 2px solid red;
+  /*border: 2px solid red;*/
+  background-color: #888;
+}
+
+.calculando {
+  background-color: #888;
 
 }
 
@@ -85,11 +111,15 @@ svg {
   color: blue;
 }
 
-.left-gols,.right-gols {
+.left-gols,.right-gols,.stats0,.stats3,.stats5,.stats8 {
   font-family: sans-serif;
   font-size:10px;
   text-align:center;
   height: 10px;
+}
+
+.stats0,.stats3,.stats5,.stats8 {
+  text-align:center;
 }
 
 .left,.right {
