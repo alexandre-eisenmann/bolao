@@ -243,8 +243,8 @@
     <div class="game">
       <div class="left">ITA</div>
       <div class="right">COS</div>
-      <div class="left-gols"></div>
-      <div class="right-gols"></div>
+      <div class="left-gols">0</div>
+      <div class="right-gols">1</div>
       <div class="stats0"></div>
       <div class="stats3"></div>
       <div class="stats5"></div>
@@ -253,8 +253,8 @@
     <div class="game">
       <div class="left">SUI</div>
       <div class="right">FRA</div>
-      <div class="left-gols"></div>
-      <div class="right-gols"></div>
+      <div class="left-gols">2</div>
+      <div class="right-gols">5</div>
       <div class="stats0"></div>
       <div class="stats3"></div>
       <div class="stats5"></div>
@@ -263,8 +263,8 @@
     <div class="game">
       <div class="left">HON</div>
       <div class="right">EQU</div>
-      <div class="left-gols"></div>
-      <div class="right-gols"></div>
+      <div class="left-gols">1</div>
+      <div class="right-gols">2</div>
       <div class="stats0"></div>
       <div class="stats3"></div>
       <div class="stats5"></div>
@@ -510,7 +510,7 @@ function updateStats(gameElement, stats) {
 }
 
 function  calculateGames(gamesArray, updateFunction) {
-  if (gamesArray && gamesArray.length == 0) 
+  if (gamesArray && gamesArray.length == 0)
     return
 
   var game = gamesArray[0];
@@ -530,7 +530,6 @@ function  calculateGames(gamesArray, updateFunction) {
 var marked;
 
 $( document ).ready(function() {
-
 
    sort();
    start();
@@ -573,7 +572,7 @@ $( document ).ready(function() {
       }
 
 
-    });   
+    });
 
     calculateGames(toBeCalculated, update);
 
