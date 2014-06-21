@@ -77,7 +77,7 @@ svg {
 
 }
 
-.game:hover {
+.done:hover, calculado:hover {
   background-color: #ddd
 
 }
@@ -107,15 +107,24 @@ color: yellow;
 
 }
 
-.left:hover,.right:hover {
-  color: blue;
-}
-
-.left-gols,.right-gols,.stats0,.stats3,.stats5,.stats8 {
+.left-controllers,.right-controllers,.left-gols,.right-gols,.stats0,.stats3,.stats5,.stats8 {
   font-family: sans-serif;
   font-size:10px;
   text-align:center;
   height: 10px;
+}
+
+.menos {
+  padding-left: 3px;
+  padding-right: 3px;
+  color: #f33d6c;
+
+}
+.mais {
+  padding-left: 3px;
+  padding-right: 3px;
+  color: #45e954;
+
 }
 
 .stats0,.stats3,.stats5,.stats8 {
