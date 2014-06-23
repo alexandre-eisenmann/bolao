@@ -319,12 +319,13 @@ function buildUpdate(jIndex) {
 
             positionBar.text(tabelao[index][POSITION_COLUMN][0]);
 
+            var invertedData = tabelao[index][POSITION_COLUMN].slice();
             xAxis.domain([0,48]);
             yAxis.domain([tabelao.length, 0]);
             line = d3.svg.line()
              .x(function(d,i) { return xAxis(i); })
              .y(function(d) { return yAxis(d); });            
-            sparklineBar.datum(tabelao[index][POSITION_COLUMN].reverse()).attr("d",line);
+            sparklineBar.datum(invertedData.reverse()).attr("d",line);
 
           }
 
