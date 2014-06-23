@@ -1,9 +1,7 @@
-
-
 var height = 28;
-var xAdvance = 305;
+var xAdvance = 405;
 var yTextAdvance = -10;
-var widthMultiplier = 7;
+var widthMultiplier = 5;
 var rainDuration = 1000;
 var sortDuration = 500;
 var goLeftDuration = 50;
@@ -86,6 +84,15 @@ function calculate() {
 }
 
 
+    var spike = [];
+    var xAxis = d3.scale.linear().range([0, 100]);
+    var yAxis = d3.scale.linear().range([height - 2 , 2]);
+    xAxis.domain(1,48);
+    yAxis.domain([0,tabelao.length]);
+    var line = d3.svg.line()
+             .x(function(d,i) { return xAxis(i); })
+             .y(function(d) { return yAxis(d); });
+
 function addPlayers(svg) {
 
   svg.selectAll("g")
@@ -105,7 +112,7 @@ function addPlayers(svg) {
      .append("rect")
      .attr("x",5)
      .attr("y",0)
-     .attr("width",300)
+     .attr("width",400)
      .attr("height",height)
      .attr("fill","#888")
      .attr("opacity",0.1);
@@ -119,11 +126,25 @@ function addPlayers(svg) {
     .attr("font-size","10px")
     .attr("fill","white");
 
+
+    playerGroup
+    .append('path')
+    .datum(spike)
+    .attr("transform","translate(250,0)")
+    .attr('class', 'sparkline')
+    .attr("stroke", "white")
+    .attr("fill","none")
+    .attr('d', line);    
+
+
+
     playerGroup
     .append("text")
     .text("")
-    .attr("x",250)
+    .attr("x",350)
     .attr("y",height + yTextAdvance)
+    .attr("width",200)
+    .attr("height",height)
     .attr("font-family","'Gotham SSm A', 'Gotham SSm B', 'Lucida Grande','Lucida Sans Unicode', Tahoma, sans-serif")
     .attr("font-size","10px")
     .attr("fill","white")
@@ -132,7 +153,7 @@ function addPlayers(svg) {
     playerGroup
     .append("text")
     .text("")
-    .attr("x",280)
+    .attr("x",380)
     .attr("y",height + yTextAdvance)
     .attr("font-family","'Gotham SSm A', 'Gotham SSm B', 'Lucida Grande','Lucida Sans Unicode', Tahoma, sans-serif")
     .attr("font-family","sans-serif")
@@ -274,6 +295,7 @@ function buildUpdate(jIndex) {
      for (var index in tabelao) {
           var deltaBar = d3.select('.c' + tabelao[index][ID_COLUMN ] + ' .delta');
           var positionBar = d3.select('.c' + tabelao[index][ID_COLUMN] + ' .position');
+          var sparklineBar = d3.select('.c' + tabelao[index][ID_COLUMN] + ' .sparkline');
 
           var campanha = tabelao[index][POSITION_COLUMN];
           if (campanha.length > 1) {
@@ -296,6 +318,13 @@ function buildUpdate(jIndex) {
                .attr("fill",color);
 
             positionBar.text(tabelao[index][POSITION_COLUMN][0]);
+
+            xAxis.domain([0,48]);
+            yAxis.domain([tabelao.length, 0]);
+            line = d3.svg.line()
+             .x(function(d,i) { return xAxis(i); })
+             .y(function(d) { return yAxis(d); });            
+            sparklineBar.datum(tabelao[index][POSITION_COLUMN].reverse()).attr("d",line);
 
           }
 
