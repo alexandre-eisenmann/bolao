@@ -87,7 +87,7 @@ function calculate() {
     var spike = [];
     var xAxis = d3.scale.linear().range([0, 100]);
     var yAxis = d3.scale.linear().range([height - 2 , 2]);
-    xAxis.domain(1,48);
+    xAxis.domain([1,48]);
     yAxis.domain([0,tabelao.length]);
     var line = d3.svg.line()
              .x(function(d,i) { return xAxis(i); })

@@ -500,6 +500,12 @@
 
 <script type="text/javascript">
 
+
+
+
+
+
+
 var selectGame = getParameterByName("selectGame");
 
 function updateStats(gameElement, stats) {
@@ -530,6 +536,18 @@ function  calculateGames(gamesArray, updateFunction) {
 
 
 $( document ).ready(function() {
+
+
+    $.getJSON('http://worldcup.sfg.io/matches', function(data) {
+          for(var i in data) {
+             console.log(data[i].home_team.code);
+             console.log(data[i].away_team.code);
+             console.log(data[i].home_team.goals);
+             console.log(data[i].away_team.goals);
+             console.log(data[i].status);
+             console.log("");
+          }
+      });
 
    sort();
    start();
