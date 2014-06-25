@@ -370,41 +370,41 @@
       <div class="stats5"></div>
       <div class="stats8"></div>
     </div>
-    <div class="game">
+    <div class="game done">
       <div class="left">COS</div>
       <div class="right">ING</div>
-      <div class="left-controllers"><span class="menos">-</span><span class="left-gols"></span><span class="mais">+</span></div>
-      <div class="right-controllers"><span class="menos">-</span><span class="right-gols"></span><span class="mais">+</span></div>
+      <div class="left-gols">0</div>
+      <div class="right-gols">0</div>
       <div class="stats0"></div>
       <div class="stats3"></div>
       <div class="stats5"></div>
       <div class="stats8"></div>
     </div>
-    <div class="game">
+    <div class="game done">
       <div class="left">ITA</div>
       <div class="right">URU</div>
-      <div class="left-controllers"><span class="menos">-</span><span class="left-gols"></span><span class="mais">+</span></div>
-      <div class="right-controllers"><span class="menos">-</span><span class="right-gols"></span><span class="mais">+</span></div>
+      <div class="left-gols">0</div>
+      <div class="right-gols">1</div>
       <div class="stats0"></div>
       <div class="stats3"></div>
       <div class="stats5"></div>
       <div class="stats8"></div>
     </div>
-    <div class="game">
+    <div class="game done">
       <div class="left">GRE</div>
       <div class="right">CDM</div>
-      <div class="left-controllers"><span class="menos">-</span><span class="left-gols"></span><span class="mais">+</span></div>
-      <div class="right-controllers"><span class="menos">-</span><span class="right-gols"></span><span class="mais">+</span></div>
+      <div class="left-gols">2</div>
+      <div class="right-gols">1</div>
       <div class="stats0"></div>
       <div class="stats3"></div>
       <div class="stats5"></div>
       <div class="stats8"></div>
     </div>
-    <div class="game">
+    <div class="game done">
       <div class="left">JAP</div>
       <div class="right">COL</div>
-      <div class="left-controllers"><span class="menos">-</span><span class="left-gols"></span><span class="mais">+</span></div>
-      <div class="right-controllers"><span class="menos">-</span><span class="right-gols"></span><span class="mais">+</span></div>
+      <div class="left-gols">4</div>
+      <div class="right-gols">1</div>
       <div class="stats0"></div>
       <div class="stats3"></div>
       <div class="stats5"></div>
@@ -538,16 +538,16 @@ function  calculateGames(gamesArray, updateFunction) {
 $( document ).ready(function() {
 
 
-    $.getJSON('http://worldcup.sfg.io/matches', function(data) {
-          for(var i in data) {
-             console.log(data[i].home_team.code);
-             console.log(data[i].away_team.code);
-             console.log(data[i].home_team.goals);
-             console.log(data[i].away_team.goals);
-             console.log(data[i].status);
-             console.log("");
-          }
-      });
+    // $.getJSON('http://worldcup.sfg.io/matches', function(data) {
+    //       for(var i in data) {
+    //          console.log(data[i].home_team.code);
+    //          console.log(data[i].away_team.code);
+    //          console.log(data[i].home_team.goals);
+    //          console.log(data[i].away_team.goals);
+    //          console.log(data[i].status);
+    //          console.log("");
+    //       }
+    //   });
 
    sort();
    start();
