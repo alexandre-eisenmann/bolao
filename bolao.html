@@ -223,8 +223,8 @@
     <div id="game-23" class="game done">
       <div class="left">URU</div>
       <div class="right">ING</div>
-      <div class="left-gols uru"></div>
-      <div class="right-gols eng"></div>
+      <div class="left-gols uru">2</div>
+      <div class="right-gols eng">1</div>
       <div class="stats0"></div>
       <div class="stats3"></div>
       <div class="stats5"></div>
@@ -403,8 +403,8 @@
     <div id="game-37" class="game done">
       <div class="left">JAP</div>
       <div class="right">COL</div>
-      <div class="left-gols jpn"></div>
-      <div class="right-gols col"></div>
+      <div class="left-gols jpn">1</div>
+      <div class="right-gols col">4</div>
       <div class="stats0"></div>
       <div class="stats3"></div>
       <div class="stats5"></div>
@@ -520,7 +520,16 @@ function  calculateGames(gamesArray, updateFunction) {
     return
 
   var game = gamesArray[0];
+
+  if (!game.left || !game.right) {
+    game.left  = game.element.find('.left-gols').html();
+    game.right = game.element.find('.right-gols').html();
+    if (!game.left || !game.right) {
+      return;
+    }
+  }
   game.element.toggleClass("calculando");
+
   updateFunction(game.left, game.right, function(stats) {
      updateStats(game.element, stats);
      game.element.toggleClass("calculando");
@@ -539,10 +548,12 @@ $( document ).ready(function() {
 
     $.getJSON('http://worldcup.sfg.io/matches', function(data) {
           for(var i in data) {
-             console.log(data[i].status );
-             if(data[i].status == "completed" ) {
-                 $("#game-" + data[i].match_number + " ." + data[i].home_team.code.toLowerCase()).html(data[i].home_team.goals);
-                 $("#game-" + data[i].match_number + " ." + data[i].away_team.code.toLowerCase()).html(data[i].away_team.goals);
+             if (!$("#game-" + data[i].match_number).hasClass("done")) {
+                if(data[i].status == "completed" ) {
+                    $("#game-" + data[i].match_number + " ." + data[i].home_team.code.toLowerCase()).html(data[i].home_team.goals);
+                    $("#game-" + data[i].match_number + " ." + data[i].away_team.code.toLowerCase()).html(data[i].away_team.goals);
+                    $("#game-" + data[i].match_number).addClass("done");
+                }
              }
           }
       });
@@ -579,7 +590,7 @@ $( document ).ready(function() {
         $(this).find('.right-gols').html(rightGols);
       }
 
-      if (canCalculate && leftGols && rightGols) {
+      if (canCalculate) {
         toBeCalculated.push({left: leftGols, right: rightGols, element: jqGame, name: game});
       }
 
