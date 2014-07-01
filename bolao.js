@@ -84,14 +84,14 @@ function calculate() {
 }
 
 
-    var spike = [];
-    var xAxis = d3.scale.linear().range([0, 100]);
-    var yAxis = d3.scale.linear().range([height - 2 , 2]);
-    xAxis.domain([1,48]);
-    yAxis.domain([0,tabelao.length]);
-    var line = d3.svg.line()
-             .x(function(d,i) { return xAxis(i); })
-             .y(function(d) { return yAxis(d); });
+var spike = [];
+var xAxis = d3.scale.linear().range([0, 100]);
+var yAxis = d3.scale.linear().range([height - 2 , 2]);
+xAxis.domain([1,48]);
+yAxis.domain([0,tabelao.length]);
+var line = d3.svg.line()
+         .x(function(d,i) { return xAxis(i); })
+         .y(function(d) { return yAxis(d); });
 
 function addPlayers(svg) {
 
@@ -130,7 +130,7 @@ function addPlayers(svg) {
     playerGroup
     .append('path')
     .datum(spike)
-    .attr("transform","translate(250,0)")
+    .attr("transform","translate(230,0)")
     .attr('class', 'sparkline')
     .attr("stroke", "white")
     .attr("fill","none")
