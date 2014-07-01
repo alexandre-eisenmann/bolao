@@ -403,88 +403,88 @@
     <div id="game-37" class="game done">
       <div class="left">JAP</div>
       <div class="right">COL</div>
-      <div class="left-gols jpn"></div>
-      <div class="right-gols col"></div>
+      <div class="left-gols jpn">1</div>
+      <div class="right-gols col">4</div>
       <div class="stats0"></div>
       <div class="stats3"></div>
       <div class="stats5"></div>
       <div class="stats8"></div>
     </div>
-    <div id="game-44" class="game">
+    <div id="game-44" class="game done">
       <div class="left">BOS</div>
       <div class="right">IRA</div>
-      <div class="left-controllers"><span class="menos">-</span><span class="left-gols bih"></span><span class="mais">+</span></div>
-      <div class="right-controllers"><span class="menos">-</span><span class="right-gols irn"></span><span class="mais">+</span></div>
+      <div class="left-gols bih">3</div>
+      <div class="right-gols irn">1</div>
       <div class="stats0"></div>
       <div class="stats3"></div>
       <div class="stats5"></div>
       <div class="stats8"></div>
     </div>
-    <div  id="game-43" class="game">
+    <div  id="game-43" class="game done">
       <div class="left">NIG</div>
       <div class="right">ARG</div>
-      <div class="left-controllers"><span class="menos">-</span><span class="left-gols nga"></span><span class="mais">+</span></div>
-      <div class="right-controllers"><span class="menos">-</span><span class="right-gols arg"></span><span class="mais">+</span></div>
+      <div class="left-gols nga">2</div>
+      <div class="right-gols arg">3</div>
       <div class="stats0"></div>
       <div class="stats3"></div>
       <div class="stats5"></div>
       <div class="stats8"></div>
     </div>
-    <div id="game-42" class="game">
+    <div id="game-42" class="game done">
       <div class="left">EQU</div>
       <div class="right">FRA</div>
-      <div class="left-controllers"><span class="menos">-</span><span class="left-gols ecu"></span><span class="mais">+</span></div>
-      <div class="right-controllers"><span class="menos">-</span><span class="right-gols fra"></span><span class="mais">+</span></div>
+      <div class="left-gols ecu">0</div>
+      <div class="right-gols fra">0</div>
       <div class="stats0"></div>
       <div class="stats3"></div>
       <div class="stats5"></div>
       <div class="stats8"></div>
     </div>
-    <div id="game-41" class="game">
+    <div id="game-41" class="game done">
       <div class="left">HON</div>
       <div class="right">SUI</div>
-      <div class="left-controllers"><span class="menos">-</span><span class="left-gols hon"></span><span class="mais">+</span></div>
-      <div class="right-controllers"><span class="menos">-</span><span class="right-gols sui"></span><span class="mais">+</span></div>
+      <div class="left-gols hon">0</div>
+      <div class="right-gols sui">3</div>
       <div class="stats0"></div>
       <div class="stats3"></div>
       <div class="stats5"></div>
       <div class="stats8"></div>
     </div>
-    <div id="game-46" class="game">
+    <div id="game-46" class="game done">
       <div class="left">POR</div>
       <div class="right">GAN</div>
-      <div class="left-controllers"><span class="menos">-</span><span class="left-gols por"></span><span class="mais">+</span></div>
-      <div class="right-controllers"><span class="menos">-</span><span class="right-gols gha"></span><span class="mais">+</span></div>
+      <div class="left-gols hon">2</div>
+      <div class="right-gols sui">1</div>
       <div class="stats0"></div>
       <div class="stats3"></div>
       <div class="stats5"></div>
       <div class="stats8"></div>
     </div>
-    <div id="game-45" class="game">
+    <div id="game-45" class="game done">
       <div class="left">EUA</div>
       <div class="right">ALE</div>
-      <div class="left-controllers"><span class="menos">-</span><span class="left-gols usa"></span><span class="mais">+</span></div>
-      <div class="right-controllers"><span class="menos">-</span><span class="right-gols ger"></span><span class="mais">+</span></div>
+      <div class="left-gols usa">0</div>
+      <div class="right-gols ger">1</div>
       <div class="stats0"></div>
       <div class="stats3"></div>
       <div class="stats5"></div>
       <div class="stats8"></div>
     </div>
-    <div id="game-48" class="game">
+    <div id="game-48" class="game done">
       <div class="left">AGL</div>
       <div class="right">RUS</div>
-      <div class="left-controllers"><span class="menos">-</span><span class="left-gols alg"></span><span class="mais">+</span></div>
-      <div class="right-controllers"><span class="menos">-</span><span class="right-gols rus"></span><span class="mais">+</span></div>
+      <div class="left-gols agl">1</div>
+      <div class="right-gols rus">1</div>
       <div class="stats0"></div>
       <div class="stats3"></div>
       <div class="stats5"></div>
       <div class="stats8"></div>
     </div>
-    <div id="game-47" class="game">
+    <div id="game-47" class="game done">
       <div class="left">COR</div>
       <div class="right">BEL</div>
-      <div class="left-controllers"><span class="menos">-</span><span class="left-gols kor"></span><span class="mais">+</span></div>
-      <div class="right-controllers"><span class="menos">-</span><span class="right-gols bel"></span><span class="mais">+</span></div>
+      <div class="left-gols kor">0</div>
+      <div class="right-gols bel">1</div>
       <div class="stats0"></div>
       <div class="stats3"></div>
       <div class="stats5"></div>
@@ -543,6 +543,7 @@ $( document ).ready(function() {
              if(data[i].status == "completed" ) {
                  $("#game-" + data[i].match_number + " ." + data[i].home_team.code.toLowerCase()).html(data[i].home_team.goals);
                  $("#game-" + data[i].match_number + " ." + data[i].away_team.code.toLowerCase()).html(data[i].away_team.goals);
+                 $("#game-" + data[i].match_number).addClass("done");
              }
           }
       });
@@ -579,7 +580,7 @@ $( document ).ready(function() {
         $(this).find('.right-gols').html(rightGols);
       }
 
-      if (canCalculate && leftGols && rightGols) {
+      if (canCalculate) {
         toBeCalculated.push({left: leftGols, right: rightGols, element: jqGame, name: game});
       }
 
